@@ -30,8 +30,8 @@ steps:
   inputs:
     appFile: '$(build.binariesDirectory)/$(buildConfiguration)'
     artifactsDirectory: '$(Build.ArtifactStagingDirectory)/AppCenterTest'
-    frameworkOption: 'appium'
-    appiumBuildDirectory: '$(build.binariesDirectory)/$(buildConfiguration)'
+    frameworkOption: 'uitest'
+    uiTestBuildDirectory: '$(build.binariesDirectory)/$(buildConfiguration)'
     credentialsOption: 'serviceEndpoint'
     serverEndpoint: 'Demo Mapfre App Center'
     appSlug: 'https://appcenter.ms/orgs/TailwindTraders_t5opwrfj/apps/TailwindTraders_Android'
