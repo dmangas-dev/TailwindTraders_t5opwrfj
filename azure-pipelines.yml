@@ -9,9 +9,22 @@ trigger:
 pool:
   vmImage: 'macos-latest'
 
+
 variables:
   buildConfiguration: 'Release'
-  outputDirectory: '- task: AppCenterTest@1
+  outputDirectory: '$(build.binariesDirectory)/bin/Release'
+steps:
+- task: NuGetToolInstaller@1
+- task: NuGetCommand@2
+  inputs:
+    restoreSolution: '**/*.sln'
+- task: XamarinAndroid@1
+  inputs:
+    projectFile: '**/*droid*.csproj'
+    outputDirectory: '$(outputDirectory)'
+    configuration: '$(buildConfiguration)'
+
+- task: AppCenterTest@1
   inputs:
     appFile: '$(build.binariesDirectory)/bin/Release'
     artifactsDirectory: '$(Build.ArtifactStagingDirectory)/AppCenterTest'
