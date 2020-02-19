@@ -31,7 +31,7 @@ steps:
     artifactsDirectory: '$(Build.ArtifactStagingDirectory)/AppCenterTest'
     frameworkOption: 'uitest'
     uiTestBuildDirectory: '$(build.binariesDirectory)/bin/Release'
-    uiTestToolsDirectory: '../Tools'
+    uiTestToolsDirectory: '$(build.sourcesdirectory)/packages/Xamarin.UITest.2.2.7/tools'
     credentialsOption: 'serviceEndpoint'
     serverEndpoint: 'Demo Mapfre App Center'
     appSlug: 'https://appcenter.ms/orgs/TailwindTraders_t5opwrfj/apps/TailwindTraders_Android'
