@@ -1,0 +1,39 @@
+# Xamarin.Android
+# Build a Xamarin.Android project.
+# Add steps that test, sign, and distribute an app, save build artifacts, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/xamarin
+
+trigger:
+- master
+
+pool:
+  vmImage: 'macos-latest'
+
+
+variables:
+  buildConfiguration: 'Release'
+  outputDirectory: '$(build.binariesDirectory)/bin/Release'
+steps:
+- task: NuGetToolInstaller@1
+- task: NuGetCommand@2
+  inputs:
+    restoreSolution: '**/*.sln'
+- task: XamarinAndroid@1
+  inputs:
+    projectFile: '**/*droid*.csproj'
+    outputDirectory: '$(outputDirectory)'
+    configuration: '$(buildConfiguration)'
+
+
+- task: AppCenterTest@1
+  inputs:
+    appFile: '$(build.binariesDirectory)/bin/Release'
+    artifactsDirectory: '$(Build.ArtifactStagingDirectory)/AppCenterTest'
+    frameworkOption: 'uitest'
+    uiTestBuildDirectory: '$(build.binariesDirectory)/bin/Release'
+    uiTestToolsDirectory: '$(build.sourcesdirectory)/packages/Xamarin.UITest.2.2.7/tools'
+    credentialsOption: 'serviceEndpoint'
+    serverEndpoint: 'Demo Mapfre App Center'
+    appSlug: 'https://appcenter.ms/orgs/TailwindTraders_t5opwrfj/apps/TailwindTraders_Android'
+    devices: 'https://appcenter.ms/orgs/TailwindTraders_t5opwrfj/apps/TailwindTraders_Android/test/device-sets/samsungs7'
+    localeOption: 'en_US'
