@@ -11,7 +11,17 @@ pool:
 
 variables:
   buildConfiguration: 'Release'
-  outputDirectory: '$(build.binariesDirectory)/bin/Release'
+  outputDirectory: '- task: AppCenterTest@1
+  inputs:
+    appFile: '$(build.binariesDirectory)/bin/Release'
+    artifactsDirectory: '$(Build.ArtifactStagingDirectory)/AppCenterTest'
+    frameworkOption: 'uitest'
+    uiTestBuildDirectory: '$(build.binariesDirectory)/bin/Release'
+    credentialsOption: 'serviceEndpoint'
+    serverEndpoint: 'Demo Mapfre App Center'
+    appSlug: 'https://appcenter.ms/orgs/TailwindTraders_t5opwrfj/apps/TailwindTraders_Android'
+    devices: 'https://appcenter.ms/orgs/TailwindTraders_t5opwrfj/apps/TailwindTraders_Android/test/device-sets/samsungs7'
+    localeOption: 'en_US''
 
 steps:
 - task: NuGetToolInstaller@1
